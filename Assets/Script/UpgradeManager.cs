@@ -6,17 +6,22 @@ public class UpgradeManager : MonoBehaviour
     public ResourceManager resourceManager; // Référence au ResourceManager
     public Button clickUpgradeButton; // Le bouton pour +1 par clic
     public Button autoClickerButton; // Le bouton pour l'Auto Clicker
+    public Button branchUpgradeButton; // Le bouton pour ouvrir une nouvelle branche
+    public Button investmentButton; // Le bouton pour acheter l'investissement
+
     public Text clickUpgradeText; // Texte du bouton +1 par clic
     public Text autoClickerText; // Texte du bouton Auto Clicker
+    public Text branchUpgradeText; // Texte du bouton d'achat de branche
+    public Text investmentText; // Texte du bouton d'investissement
 
     public int clickUpgradeCost = 10; // Coût initial pour le clic
     public int autoClickerCost = 100; // Coût initial pour l'Auto Clicker
-    public int clickBonus = 1; // Bonus pour le clic
-    public int autoClickBonus = 1; // Bonus pour l'Auto Clicker
     public int branchCost = 1000; // Coût pour ouvrir une branche
-    public int branchGoldIncrease = 2; // Or supplémentaire par seconde par branche
-    public Text branchUpgradeText; // Texte du bouton d'achat de branche
-    public Button branchUpgradeButton; // Bouton pour acheter une branche
+    public int investmentCost = 10000; // Coût initial de l'investissement
+    public int investmentGoldPerInterval = 200; // Or généré toutes les 30 secondes par investissement
+    public int investmentGoldIncrease = 200; // Incrément par investissement
+    public int maxInvestments = 5; // Nombre maximum d'investissements
+    public int currentInvestments = 0; // Nombre actuel d'investissements
 
     void Start()
     {
@@ -27,22 +32,15 @@ public class UpgradeManager : MonoBehaviour
     {
         if (resourceManager.currentAmount >= clickUpgradeCost)
         {
-            // Déduit le coût de l'amélioration
             resourceManager.currentAmount -= clickUpgradeCost;
-
-            // Augmente le bonus de clic
-            resourceManager.perClick += clickBonus;
-
-            // Augmente le coût pour la prochaine amélioration
+            resourceManager.clickAmount += 1;
             clickUpgradeCost += 10;
-
-            // Mets à jour l'UI
             resourceManager.UpdateUI();
             UpdateButtonUI();
         }
         else
         {
-            Debug.Log("Pas assez de ressources pour le Click Upgrade !");
+            Debug.Log("Pas assez de ressources pour l'Upgrade !");
         }
     }
 
@@ -50,16 +48,9 @@ public class UpgradeManager : MonoBehaviour
     {
         if (resourceManager.currentAmount >= autoClickerCost)
         {
-            // Déduit le coût de l'amélioration
             resourceManager.currentAmount -= autoClickerCost;
-
-            // Augmente le gain automatique par seconde
-            resourceManager.autoClickAmount += autoClickBonus;
-
-            // Augmente le coût pour la prochaine amélioration
+            resourceManager.autoClickAmount += 1;
             autoClickerCost += 50;
-
-            // Mets à jour l'UI
             resourceManager.UpdateUI();
             UpdateButtonUI();
         }
@@ -69,28 +60,13 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    void UpdateButtonUI()
-    {
-        // Mets à jour uniquement le texte des boutons
-        clickUpgradeText.text = "Amélioration Clic: " + clickUpgradeCost + " Or" + "= +1 gold per click";
-        autoClickerText.text = "Auto Clicker: " + autoClickerCost + " Or" + " = +1 gold per second";
-        branchUpgradeText.text = "New Shop : " + branchCost + " Or" + " = Open a new shop in town, grants you 1 more gold per second for the autoclicker";
-        
-    }
     public void BuyBranch()
     {
         if (resourceManager.currentAmount >= branchCost)
         {
-            // Déduit le coût de la branche
             resourceManager.currentAmount -= branchCost;
-
-            // Augmente les gains par seconde des branches
-            resourceManager.branchGoldPerSecond += branchGoldIncrease;
-
-            // Augmente le coût pour la prochaine branche
+            resourceManager.branchGoldPerSecond += 2;
             branchCost += 500;
-
-            // Mets à jour l'UI
             resourceManager.UpdateUI();
             UpdateButtonUI();
         }
@@ -98,5 +74,33 @@ public class UpgradeManager : MonoBehaviour
         {
             Debug.Log("Pas assez de ressources pour ouvrir une nouvelle branche !");
         }
+    }
+
+    public void BuyInvestment()
+    {
+        if (resourceManager.currentAmount >= investmentCost && currentInvestments < maxInvestments)
+        {
+            resourceManager.currentAmount -= investmentCost;
+            currentInvestments++;
+            resourceManager.investmentGoldPerInterval += investmentGoldPerInterval;
+            investmentCost += 5000;
+            resourceManager.UpdateUI();
+            UpdateButtonUI();
+        }
+        else
+        {
+            Debug.Log("Pas assez de ressources pour l'investissement !");
+        }
+    }
+
+    void UpdateButtonUI()
+    {
+        // Met à jour les textes des boutons
+        clickUpgradeText.text = $"Upgrade: {clickUpgradeCost} Gold = +{resourceManager.clickAmount} gold per click";
+        autoClickerText.text = $"Auto Clicker: {autoClickerCost} Gold = +1 gold per second";
+        branchUpgradeText.text = $"New Shop: {branchCost} Gold = grants you 1 more gold per second";
+        investmentText.text = currentInvestments < maxInvestments
+            ? $"Investment: {investmentCost} Gold = You're shop is famous! U get {resourceManager.investmentGoldPerInterval} gold every 30 sec"
+            : "Investment: MAX";
     }
 }
