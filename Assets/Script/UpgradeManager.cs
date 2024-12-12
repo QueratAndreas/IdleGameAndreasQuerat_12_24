@@ -96,11 +96,11 @@ public class UpgradeManager : MonoBehaviour
     void UpdateButtonUI()
     {
         // Met à jour les textes des boutons
-        clickUpgradeText.text = $"Upgrade: {clickUpgradeCost} Gold = +{resourceManager.clickAmount} gold per click";
-        autoClickerText.text = $"Auto Clicker: {autoClickerCost} Gold = +1 gold per second";
-        branchUpgradeText.text = $"New Shop: {branchCost} Gold = grants you 1 more gold per second";
+        clickUpgradeText.text = $"{clickUpgradeCost} Gold = +{resourceManager.clickAmount} gold per click";
+        autoClickerText.text = $"{autoClickerCost} Gold = +1 gold per second";
+        branchUpgradeText.text = $"{branchCost} Gold = grants you 1 more gold per second";
         investmentText.text = currentInvestments < maxInvestments
-            ? $"Investment: {investmentCost} Gold = You're shop is famous! U get {resourceManager.investmentGoldPerInterval} gold every 30 sec"
+            ? $"{investmentCost} Gold = You're shop is famous! U get {resourceManager.investmentGoldPerInterval} gold every 30 sec"
             : "Investment: MAX";
     }
 }
