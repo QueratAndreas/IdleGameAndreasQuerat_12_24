@@ -65,7 +65,7 @@ public class UpgradeManager : MonoBehaviour
         if (resourceManager.currentAmount >= branchCost)
         {
             resourceManager.currentAmount -= branchCost;
-            resourceManager.branchGoldPerSecond += 2;
+            resourceManager.branchGoldPerSecond += 1;
             branchCost += 500;
             resourceManager.UpdateUI();
             UpdateButtonUI();

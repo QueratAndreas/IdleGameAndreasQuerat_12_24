@@ -13,6 +13,6 @@ public class ButtonSceneSwitcher : MonoBehaviour
     // Méthode pour revenir à "BaseScene"
     public void SwitchToBaseScene()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("IdleGmeAQ10_12_24");
     }
 }
