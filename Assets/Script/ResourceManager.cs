@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 public class ResourceManager : MonoBehaviour
 {
     public int currentAmount = 0; 
@@ -9,9 +10,9 @@ public class ResourceManager : MonoBehaviour
     public int branchGoldPerSecond = 0; 
     public int investmentGoldPerInterval = 0; 
     public int currentInvestments = 0; 
-    public int maxInvestments = 5; 
-
-    public Text goldText; 
+    public int maxInvestments = 5;
+    public List<Text> goldTexts = new List<Text>();
+ 
 
     private void Start()
     {
@@ -49,13 +50,16 @@ public class ResourceManager : MonoBehaviour
         UpdateUI();
     }
 
-    
+
     public void UpdateUI()
     {
-        goldText.text = "" + currentAmount;
+        foreach (Text goldText in goldTexts)
+        {
+            goldText.text = currentAmount.ToString(); 
+        }
     }
 
-    
+
     public void IncreaseClickAmount(int bonus)
     {
         clickAmount += bonus;
