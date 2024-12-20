@@ -18,7 +18,7 @@ public class ResourceManager : MonoBehaviour
     {
         InvokeRepeating(nameof(AddAutoClickResources), 1f, 1f); 
         InvokeRepeating(nameof(AddBranchGold), 1f, 1f); 
-        InvokeRepeating(nameof(AddInvestmentGold), 30f, 30f); 
+
         UpdateUI();
     }
 

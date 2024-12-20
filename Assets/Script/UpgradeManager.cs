@@ -67,7 +67,7 @@ public class UpgradeManager : MonoBehaviour
         if (resourceManager.currentAmount >= branchCost)
         {
             resourceManager.currentAmount -= branchCost;
-            resourceManager.branchGoldPerSecond += 1; // Correction : ajout d'un bonus effectif
+            resourceManager.branchGoldPerSecond *= 2; // Correction : ajout d'un bonus effectif
             branchCost += 500;
             resourceManager.UpdateUI();
             UpdateButtonUI();
@@ -90,9 +90,9 @@ public class UpgradeManager : MonoBehaviour
             // Vérifie si l'investissement n'est pas déjà actif
             if (!investmentActive)
             {
-                // Activation de l'investissement et du processus répétitif
+                
                 investmentActive = true;
-                InvokeRepeating(nameof(AddInvestmentGold), 30f, 30f); // Ajout d'or toutes les 30 secondes
+                InvokeRepeating(nameof(AddInvestmentGold), 30f, 30f); 
             }
         }
         else
