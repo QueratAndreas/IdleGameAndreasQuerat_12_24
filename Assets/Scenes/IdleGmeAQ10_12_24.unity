@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: a4e4d484184d80c498ac2bd1f864ede5, type: 3}
-    m_FontSize: 29
+    m_FontSize: 33
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
@@ -192,8 +192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Permet de voir l'avenir avec pr\xE9\xE7ision a tout moment et de n'importe
-    qui."
+  m_Text: "Permet a son d\xE9tenteur de provoquer une nuit \xE9ternelle."
 --- !u!222 &18941485
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1950,7 +1949,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: a4e4d484184d80c498ac2bd1f864ede5, type: 3}
-    m_FontSize: 29
+    m_FontSize: 39
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
